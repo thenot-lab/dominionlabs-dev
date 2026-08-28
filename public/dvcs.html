@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dominion IDE — AI development environment you run yourself</title>
+<meta name="description" content="Dominion IDE (DVCS): a desktop development environment with AI built in, running on your own machine. Windows installer, no account, no telemetry.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<style>
+  :root{
+    --ground:#F2F4F0; --raise:#FBFCFA; --ink:#14201A; --ink-soft:#4A5B52;
+    --ink-faint:#7C8B83; --rule:#CFD7CC; --rule-soft:#E2E8DF;
+    --pine:#1F5C3D; --pine-wash:#E6EFE8; --amber:#A65A17; --amber-wash:#F6EBDF;
+    --shadow:0 1px 2px rgba(20,32,26,.05);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0E1411; --raise:#151D19; --ink:#E4EAE4; --ink-soft:#A3B0A8;
+      --ink-faint:#718077; --rule:#2B3630; --rule-soft:#1F2823;
+      --pine:#63BC8C; --pine-wash:#152620; --amber:#D89049; --amber-wash:#2A1F13;
+      --shadow:0 1px 2px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0E1411; --raise:#151D19; --ink:#E4EAE4; --ink-soft:#A3B0A8;
+    --ink-faint:#718077; --rule:#2B3630; --rule-soft:#1F2823;
+    --pine:#63BC8C; --pine-wash:#152620; --amber:#D89049; --amber-wash:#2A1F13;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--ground);color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:52rem;margin:0 auto;padding:0 1.5rem 6rem}
+  nav{padding-top:1.4rem}
+  nav a{font-family:"IBM Plex Mono",monospace;font-size:.78rem;letter-spacing:.1em;
+    text-transform:uppercase;text-decoration:none;color:var(--pine)}
+  .mast{padding:3rem 0 2.5rem;border-bottom:1px solid var(--rule)}
+  .eyebrow{font-family:"IBM Plex Mono",monospace;font-size:.72rem;letter-spacing:.14em;
+    text-transform:uppercase;color:var(--ink-faint)}
+  h1{font-family:"Instrument Serif",Georgia,serif;font-weight:400;
+    font-size:clamp(2.4rem,6.5vw,3.8rem);line-height:1.04;letter-spacing:-.015em;
+    text-wrap:balance;margin:1rem 0 0}
+  .thesis{font-size:1.16rem;line-height:1.55;color:var(--ink-soft);max-width:36rem;
+    margin:1.2rem 0 0;text-wrap:pretty}
+  .thesis em{font-style:italic;color:var(--ink)}
+  section{padding-top:3rem}
+  h2{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:1.9rem;
+    line-height:1.15;margin:0 0 .4rem;letter-spacing:-.01em}
+  .lede{color:var(--ink-soft);margin:0 0 1.6rem;max-width:36rem}
+  p{margin:0 0 1rem}
+  a{color:var(--pine);text-underline-offset:2px}
+  .dl{border:1px solid var(--pine);background:var(--raise);box-shadow:var(--shadow);
+    padding:1.7rem 1.6rem;margin-top:.4rem}
+  .dl .ver{font-family:"IBM Plex Mono",monospace;font-size:.8rem;font-weight:600;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--pine)}
+  .dl h3{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:1.7rem;
+    margin:.35rem 0 .7rem}
+  .cta{display:inline-block;background:var(--pine);color:var(--ground);
+    text-decoration:none;font-weight:600;padding:.7rem 1.25rem;border-radius:3px;
+    margin-right:1rem}
+  .cta:hover{opacity:.92}
+  .fine{font-size:.85rem;color:var(--ink-faint);margin-top:1rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:1rem}
+  .card{border:1px solid var(--rule);background:var(--raise);padding:1.2rem;
+    box-shadow:var(--shadow)}
+  .card h3{margin:0 0 .4rem;font-size:1.02rem;font-weight:600}
+  .card p{margin:0;font-size:.92rem;color:var(--ink-soft);line-height:1.55}
+  .warn{border:1px solid var(--amber);background:var(--amber-wash);padding:1.3rem 1.4rem;
+    margin-top:1.5rem}
+  .warn h3{margin:0 0 .5rem;font-family:"Instrument Serif",Georgia,serif;font-weight:400;
+    font-size:1.4rem}
+  .warn p:last-child{margin-bottom:0}
+  code{font-family:"IBM Plex Mono",monospace;font-size:.86em;background:var(--pine-wash);
+    padding:.1em .34em;border-radius:2px}
+  footer{margin-top:3.5rem;padding-top:1.4rem;border-top:1px solid var(--rule-soft);
+    font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--ink-faint);
+    display:flex;gap:1.2rem;flex-wrap:wrap}
+  footer a{color:var(--ink-faint)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <nav><a href="/">&larr; dominionlabs.dev</a></nav>
+
+  <header class="mast">
+    <div class="eyebrow">Desktop application · Windows</div>
+    <h1>Dominion IDE</h1>
+    <p class="thesis">
+      A development environment with AI built into it, that <em>runs on your machine</em>.
+      No account, no telemetry, no code leaving your disk unless you send it. Bring your
+      own model — a local one, or your own API key.
+    </p>
+  </header>
+
+  <section>
+    <div class="dl">
+      <span class="ver">Version 2.2.0 · Windows x64</span>
+      <h3>Download</h3>
+      <p>
+        NSIS installer, ~385&nbsp;MB. Installs per-user; no admin rights needed.
+      </p>
+      <a class="cta" href="#download" id="dl-link">Download the installer</a>
+      <p class="fine">
+        SHA-256 published beside the download so you can verify the file you got is the
+        file we built.
+      </p>
+    </div>
+
+    <div class="warn">
+      <h3>Read this before you install</h3>
+      <p>
+        <b>The installer is not code-signed yet.</b> Windows SmartScreen will warn you
+        and say the publisher is unknown — click <b>More info → Run anyway</b> if you
+        choose to proceed. We would rather tell you that plainly than have you discover
+        it at the prompt.
+      </p>
+      <p>
+        Signing certificates cost money we have not spent yet. When one is in place this
+        notice comes down and the download is signed. <b>Verify the SHA-256</b> in the
+        meantime — that is the check that actually proves the bytes.
+      </p>
+    </div>
+  </section>
+
+  <section>
+    <h2>What it is</h2>
+    <p class="lede">An editor, a terminal, and an AI agent that can read and change your project — in one desktop app.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>Your model, your choice</h3>
+        <p>Point it at a local model (Ollama) or your own provider key. The key stays on your machine.</p>
+      </div>
+      <div class="card">
+        <h3>Local first</h3>
+        <p>Your files never leave the machine unless a request you made sends them. No background sync, no analytics.</p>
+      </div>
+      <div class="card">
+        <h3>Agent that acts</h3>
+        <p>Reads the repo, proposes and applies edits, runs commands — with the diff in front of you before it lands.</p>
+      </div>
+      <div class="card">
+        <h3>Mobile companion</h3>
+        <p>Pairs with the DVCS mobile app over mTLS on your own network — check a build from the couch.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Honest status</h2>
+    <p>
+      Version 2.2.0 is a real build from a test suite that runs green (1,655 passing) and
+      a clean type-check — but it is <b>early, and it is one person's work</b>. It is
+      offered as-is under active development. If something breaks, tell us and it gets
+      looked at: <a href="mailto:contact@dominionlabs.dev">contact@dominionlabs.dev</a>.
+    </p>
+    <p class="fine">
+      Windows x64 only for now. macOS and Linux builds are possible but untested, and we
+      would rather ship nothing than ship a binary we have not run.
+    </p>
+  </section>
+
+  <footer>
+    <a href="/">home</a>
+    <a href="/audit-sample.html">sample report</a>
+    <a href="/terms.html">terms</a>
+    <a href="/privacy.html">privacy</a>
+    <span>© 2026 Dominion Labs</span>
+  </footer>
+
+</div>
+</body>
+</html>
