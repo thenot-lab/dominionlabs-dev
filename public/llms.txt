@@ -1,0 +1,71 @@
+# Dominion Labs
+
+> Friendly AI tools, security help, and code that runs on your own hardware. Open source where we can. Plain talk, no nonsense. Apache 2.0. Built in Brechin, Ontario.
+
+## About
+
+Dominion Labs makes AI tools, runs security audits, and builds custom stuff. All tools work on your own hardware first, cloud only if you want it. Apache 2.0 licensed where applicable. Real replies within 48 hours, no autoresponders, no sales funnel. Small Canadian shop, founded 2025. Sole founder + AI partner (Eli).
+
+## Live products (shipped)
+
+- [Nexus AI Inference Engine](https://nexus.dominionlabs.dev): Sovereign Western-model inference proxy. Live.
+- [Eli Companion (Android)](https://github.com/thenot-lab/eli-companion-android): mTLS-paired AI companion for BlackBerry KEY2 + LineageOS. Native NSD + audit chain + accessibility intent capture. v1.5.3 shipped.
+- [LiquiDominion Mobile](https://github.com/thenot-lab/liqui-dominion): React Native AI dashboard. publicx flavor (open) + brayd flavor (personal-override build). v1.5.27 shipped 2026-05-20.
+- [DVCS Mobile (Dominion Visual Code Studio)](https://github.com/thenot-lab/dominion-ide): Mobile IDE companion paired via mTLS. v1.3.0 live.
+- [EdgePanel](https://github.com/thenot-lab): Lightweight per-app health badge surface for the Dominion mobile substrate. Runtime-verified on KEY2.
+- [Shadowtrace](https://github.com/thenot-lab/shadowtrace): See what's really on your network. OSINT corroboration v7. Open source CLI, no telemetry.
+- [CompanionBot](https://thenot-lab.github.io/companion_bot.html): AI friend who actually listens. Set it up however you like.
+- [Eli Guardian](https://thenot-lab.github.io/eli_guardian.html): Catches the bad stuff before it bites. Security that thinks like a defender.
+
+## Coming soon
+
+- [CDX (Circuit Dominion Exchange)](https://dominionlabs.dev/cdx.html): Two-sided marketplace for circular AI/compute resource flows. Idle GPU on one machine becomes inference fuel for another, with cryptographic provenance. Pre-launch.
+- CSRE-as-a-service: $25-75 per case CRA T1-Adjustment generator. Stripe + signed bundle delivery.
+- CSCE T/J meter SaaS: $49-999/mo token-per-joule carbon disclosure for AI labs.
+
+## Free tools (in-browser)
+
+- [DominionizeAi Prompter](https://miniapps.ai/dominionizeai-prompter-prompt-tool): Shape better prompts for AI.
+- [Dropstream](https://miniapps.ai/dropstream): Drop a file, get a link. No accounts.
+- [Codewrite](https://miniapps.ai/code-7): AI code review like CodeRabbit. Quick second pair of eyes.
+
+## Play
+
+- [Jelly Siege](https://dominionlabs.dev/#play): Two-player castle defense game embedded on the home page. More games coming.
+
+## Help we offer
+
+- [Glasswing-Grade Security](https://thenot-lab.github.io/security_consulting.html): Real security audits, not checklists.
+- AI on your hardware: We set up AI tools on your own boxes so nobody else touches your data.
+- Custom builds: Tell us what you need; we'll quote real numbers.
+
+## Stack principles
+
+- Western-origin only: model supply chain (Google, Meta, Microsoft, IBM, Cohere Canada, Mistral AI France, Korean + Japanese maintainers). No models from authoritarian regimes.
+- Sovereignty-first: tools run on your hardware first; cloud is optional.
+- Apache 2.0 where applicable.
+- mTLS pairing + hash-chained audit logs as defaults, not afterthoughts.
+- No surveillance, no telemetry, no Bill C-22 pre-compliance.
+
+## Engineering surface
+
+- Origin ledger: 21+ lessons cataloged across the substrate. Each one prevents a class of failure.
+- 7 production skills shipped 2026-05-20: adb-pre-flight, pair-flow-validator, build-config-snapshot, manifest-pipeline-validator, pyrit-red-team, pin-flow-validator, customer-discovery-runner.
+- SOC 2 scaffold authored pre-CDX-launch (B147): 6 control documents covering CC1-CC9.
+
+## Pages
+
+- [Home](https://dominionlabs.dev)
+- [About](https://dominionlabs.dev/about.html)
+- [Changelog](https://dominionlabs.dev/changelog.html)
+- [CDX (teaser)](https://dominionlabs.dev/cdx.html)
+- [Request a build / audit](https://dominionlabs.dev/request.html)
+- [Donate / tip](https://dominionlabs.dev/donate.html)
+- [Privacy](https://dominionlabs.dev/privacy.html)
+- [Terms](https://dominionlabs.dev/terms.html)
+
+## Contact
+
+- Real email: contact@dominionlabs.dev (replies within 48 hours, no autoresponders)
+- GitHub: https://github.com/thenot-lab
+- Brayd's personal handle: brayjgards9

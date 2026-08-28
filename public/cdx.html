@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CDX — Circuit Dominion Exchange · Dominion Labs</title>
+<meta name="description" content="CDX is a two-sided marketplace for circular AI/compute resource flows. Idle GPU on one machine becomes inference fuel for another, with cryptographic provenance attached. Pre-launch.">
+<meta name="theme-color" content="#0a0a0f">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dominionlabs.dev/cdx.html">
+<meta property="og:title" content="CDX — Circuit Dominion Exchange">
+<meta property="og:description" content="Two-sided marketplace for circular AI/compute resource flows. Pre-launch.">
+<meta property="og:site_name" content="Dominion Labs">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --c-bg: #0c0820;
+  --c-bg-elevated: #14102e;
+  --c-bg-overlay: #1d1740;
+  --c-fg: #ffffff;
+  --c-fg-dim: #c4b8e6;
+  --c-fg-dimmer: #7a6fa6;
+  --c-border: rgba(124, 58, 237, 0.2);
+  --c-border-strong: rgba(124, 58, 237, 0.5);
+  --c-purple: #8b5cf6;
+  --c-purple-bright: #a78bfa;
+  --c-purple-deep: #6d28d9;
+  --c-lime: #a3e635;
+  --c-lime-bright: #bef264;
+  --c-lime-deep: #65a30d;
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-serif: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+  --font-mono: 'JetBrains Mono', 'Cascadia Code', Menlo, Consolas, monospace;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--c-bg);
+  background-image:
+    radial-gradient(circle at 20% 0%, rgba(139, 92, 246, 0.18) 0%, transparent 50%),
+    radial-gradient(circle at 80% 100%, rgba(163, 230, 53, 0.08) 0%, transparent 50%);
+  background-attachment: fixed;
+  color: var(--c-fg);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+a { color: var(--c-purple-bright); }
+a:hover { color: var(--c-lime); }
+.skip { position: absolute; left: -9999px; }
+.skip:focus { left: 16px; top: 16px; padding: 12px; background: var(--c-lime); color: var(--c-bg); z-index: 999; border-radius: 6px; }
+
+.nav {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid var(--c-border);
+}
+.brand { font-family: var(--font-serif); font-weight: 900; font-size: 1.5rem; }
+.brand a { color: var(--c-fg); text-decoration: none; }
+.nav-links a { color: var(--c-fg-dim); text-decoration: none; margin-left: 24px; font-size: 0.9rem; }
+.nav-links a:hover { color: var(--c-lime); }
+
+main {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 64px 24px;
+}
+
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-lime);
+  padding: 8px 16px;
+  background: rgba(163, 230, 53, 0.08);
+  border: 1px solid var(--c-lime);
+  border-radius: 9999px;
+  margin-bottom: 24px;
+}
+.dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--c-lime-bright);
+  box-shadow: 0 0 12px var(--c-lime);
+}
+
+h1 {
+  font-family: var(--font-serif);
+  font-size: clamp(2.75rem, 6vw, 4.5rem);
+  font-weight: 900;
+  letter-spacing: -0.025em;
+  line-height: 1.05;
+  margin-bottom: 24px;
+  max-width: 18ch;
+}
+h1 em {
+  font-style: italic;
+  background: linear-gradient(135deg, var(--c-purple-bright) 0%, var(--c-lime) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.lede {
+  font-size: 1.25rem;
+  color: var(--c-fg-dim);
+  max-width: 56ch;
+  margin-bottom: 48px;
+  line-height: 1.65;
+}
+
+h2 {
+  font-family: var(--font-serif);
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 16px;
+  margin-top: 64px;
+  letter-spacing: -0.02em;
+}
+p { margin-bottom: 16px; color: var(--c-fg-dim); }
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.card {
+  background: var(--c-bg-elevated);
+  border: 1px solid var(--c-border);
+  border-radius: 20px;
+  padding: 24px;
+}
+.card-name {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.card-body { color: var(--c-fg-dim); font-size: 0.95rem; }
+
+.feature-list {
+  list-style: none;
+  margin-top: 16px;
+}
+.feature-list li {
+  padding: 10px 0;
+  padding-left: 28px;
+  position: relative;
+  color: var(--c-fg-dim);
+  border-bottom: 1px dashed var(--c-border);
+}
+.feature-list li:last-child { border-bottom: none; }
+.feature-list li::before {
+  content: "✓";
+  position: absolute;
+  left: 0;
+  color: var(--c-lime);
+  font-weight: 700;
+}
+
+.notify-form {
+  margin-top: 32px;
+  padding: 32px;
+  background: var(--c-bg-elevated);
+  border: 1px solid var(--c-border-strong);
+  border-radius: 24px;
+}
+.notify-form label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--c-fg-dim);
+  margin-bottom: 8px;
+}
+.notify-form input[type=email] {
+  width: 100%;
+  padding: 14px 16px;
+  background: var(--c-bg);
+  border: 1px solid var(--c-border-strong);
+  border-radius: 12px;
+  color: var(--c-fg);
+  font-size: 1rem;
+  font-family: var(--font-sans);
+  margin-bottom: 16px;
+}
+.notify-form input[type=email]:focus {
+  outline: none;
+  border-color: var(--c-lime);
+}
+.notify-form .btn {
+  display: inline-block;
+  background: var(--c-lime);
+  color: var(--c-bg);
+  border: none;
+  padding: 14px 32px;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: var(--font-sans);
+}
+.notify-form .btn:hover {
+  background: var(--c-lime-bright);
+}
+.notify-form .note {
+  font-size: 0.8125rem;
+  color: var(--c-fg-dimmer);
+  margin-top: 12px;
+  margin-bottom: 0;
+}
+
+.callout {
+  background: rgba(139, 92, 246, 0.08);
+  border-left: 4px solid var(--c-purple-bright);
+  padding: 20px 24px;
+  border-radius: 0 12px 12px 0;
+  margin: 32px 0;
+  color: var(--c-fg-dim);
+}
+.callout strong { color: var(--c-purple-bright); }
+
+footer {
+  max-width: 56rem;
+  margin: 64px auto 32px;
+  padding: 24px;
+  font-size: 0.875rem;
+  color: var(--c-fg-dimmer);
+  border-top: 1px solid var(--c-border);
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+footer a { color: var(--c-fg-dim); text-decoration: none; margin-left: 16px; }
+footer a:hover { color: var(--c-lime); }
+@media (max-width: 640px) {
+  footer { flex-direction: column; }
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<nav class="nav">
+  <div class="brand"><a href="/">Dominion Labs</a></div>
+  <div class="nav-links">
+    <a href="/#products">Products</a>
+    <a href="/changelog.html">Changelog</a>
+    <a href="/about.html">About</a>
+    <a href="/request.html">Request</a>
+  </div>
+</nav>
+
+<main id="main">
+
+<div class="hero-tag"><span class="dot"></span> Pre-launch</div>
+
+<h1>CDX is a <em>compute exchange</em> for the in-between.</h1>
+
+<p class="lede">A two-sided marketplace where idle GPU on one operator's machine becomes inference fuel for another's. Cryptographically provenanced. Western-origin model supply chain only. Built on the same audit-chain primitives that run the rest of Dominion Labs.</p>
+
+<h2>What it is</h2>
+<p>CDX — Circuit Dominion Exchange — is the marketplace layer for circular AI compute deals. Compute resources flow between parties: idle capacity from one becomes inference or training fuel for another, with CDX as the matching, execution, and audit layer between them.</p>
+
+<p>This isn't a generic contractor marketplace. It's specifically for AI-compute transactions where supply-chain origin, mTLS-attested execution, and signed delivery receipts matter to both sides.</p>
+
+<div class="callout">
+  <strong>Status as of 2026-05-20:</strong> CDX v2.0.0 repo lives at <code>OneDrive/source/repos/CDX P1/</code>. Hetzner deploy plan staged. Pre-CDX SOC 2 scaffold authored (6 control docs, CC1-CC9 mapped). DNS at <code>cdx.dominionlabs.dev</code> not yet pointed.
+</div>
+
+<h2>Who it's for</h2>
+
+<div class="card-grid">
+  <div class="card">
+    <div class="card-name">Compute suppliers</div>
+    <p class="card-body">Operators with idle GPU cycles, mid-sized cloud regions with overcapacity, model-as-a-service operators with off-peak inference headroom.</p>
+  </div>
+  <div class="card">
+    <div class="card-name">Compute consumers</div>
+    <p class="card-body">Training-run originators, inference-burst customers, region-specific compute needs (Bill 194-aware Ontario procurement, sovereign-origin requirements).</p>
+  </div>
+</div>
+
+<h2>Why circular</h2>
+<p>Compute resources don't sit idle uniformly. One operator's overcapacity at 3am is another operator's peak-demand window at noon. CDX is the matching layer that makes the in-between profitable for both sides, without requiring either to migrate to a hyperscaler.</p>
+
+<h2>What ships with v1</h2>
+<ul class="feature-list">
+  <li>Two-sided listing surface: suppliers post capacity, consumers post jobs</li>
+  <li>Matching engine with origin-attestation filtering (Western supply chain only by default)</li>
+  <li>mTLS-attested execution: jobs verify their runtime environment cryptographically</li>
+  <li>Signed delivery receipts via Ed25519 — same primitive used across CSRE / CSCE</li>
+  <li>2% all-in transaction fee (vs 4-15% mean for compute brokers)</li>
+  <li>Audit log per transaction, hash-chained, queryable by both parties</li>
+  <li>Optional pre-execution origin attestation bundle for Ontario Bill 194 procurement</li>
+</ul>
+
+<h2>What it's NOT</h2>
+<ul class="feature-list" style="margin-top: 16px;">
+  <li>Not a generic contractor/services marketplace</li>
+  <li>Not a hyperscaler reseller</li>
+  <li>Not for compute sourced from authoritarian-regime suppliers</li>
+  <li>Not running on surveillance / telemetry / behavioral-tracking primitives</li>
+</ul>
+
+<h2>Why now</h2>
+<p>Ontario Bill 194 is tightening AI vendor-eligibility requirements through 2026-2027. Sovereign-origin compute is becoming a real procurement filter, not just a values-aligned preference. CDX is the marketplace layer that makes that filter actionable.</p>
+
+<p>Pricing context: typical compute broker takes are 4-15%. CDX at 2% is well below mean, intentionally. The point is liquidity bootstrapping, not extraction.</p>
+
+<div class="notify-form">
+  <p style="margin-bottom: 16px;"><strong>Get notified when CDX opens for early access.</strong></p>
+  <label for="cdx-email">Real email (no fake addresses — early access is hand-curated)</label>
+  <form action="mailto:contact@dominionlabs.dev" method="get" enctype="text/plain">
+    <input type="hidden" name="subject" value="CDX early access interest">
+    <input type="email" name="body" id="cdx-email" placeholder="you@yourdomain" required>
+    <button type="submit" class="btn">Notify me</button>
+  </form>
+  <p class="note">Currently routes to <code>contact@dominionlabs.dev</code>. We reply within 48 hours, no autoresponders, no sales funnel.</p>
+</div>
+
+<h2>Related work</h2>
+<p>
+  <a href="https://nexus.dominionlabs.dev">Nexus AI Inference Engine</a> is the sovereign-routing layer CDX builds on top of.
+  <a href="/changelog.html">The changelog</a> tracks what ships across the substrate.
+  CSRE-as-a-service and CSCE T/J meter are sibling commercial surfaces gated on the same trust primitives.
+</p>
+
+</main>
+
+<footer>
+  <div>© Dominion Labs · Brechin, Ontario · Apache 2.0 where applicable</div>
+  <div>
+    <a href="/about.html">About</a>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+    <a href="/llms.txt">/llms.txt</a>
+  </div>
+</footer>
+
+</body>
+</html>

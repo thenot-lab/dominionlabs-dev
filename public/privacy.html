@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy — Dominion Labs</title>
+<meta name="description" content="What we collect, what we don't, and how we handle data. Plain talk.">
+<meta name="theme-color" content="#0c0820">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dominionlabs.dev/privacy.html">
+<meta property="og:title" content="Privacy — Dominion Labs">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--c-bg:#0c0820;--c-bg-elevated:#14102e;--c-fg:#fff;--c-fg-dim:#c4b8e6;--c-fg-dimmer:#7a6fa6;--c-border:rgba(124,58,237,.2);--c-border-strong:rgba(124,58,237,.5);--c-purple-bright:#a78bfa;--c-lime:#a3e635;--c-lime-glow:rgba(163,230,53,.2);--font-sans:'Inter',-apple-system,sans-serif;--font-serif:'Fraunces',Georgia,serif;--font-mono:'JetBrains Mono',Menlo,monospace;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;--space-16:4rem;--space-20:5rem;--space-24:6rem;--radius-md:12px;--radius-pill:9999px;--content-width:72rem;--content-narrow:42rem}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--c-bg);background-image:radial-gradient(circle at 20% 0%,rgba(139,92,246,.15) 0%,transparent 50%);background-attachment:fixed;color:var(--c-fg);font-family:var(--font-sans);font-size:1rem;line-height:1.5;-webkit-font-smoothing:antialiased}
+a:focus-visible{outline:3px solid var(--c-lime);outline-offset:3px;border-radius:6px}
+nav.site-nav{position:sticky;top:0;background:rgba(12,8,32,.85);backdrop-filter:blur(12px) saturate(180%);-webkit-backdrop-filter:blur(12px) saturate(180%);border-bottom:1px solid var(--c-border);z-index:100}
+.nav-inner{max-width:var(--content-width);margin:0 auto;padding:var(--space-4) var(--space-6);display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-family:var(--font-serif);font-weight:900;font-size:1.25rem;font-style:italic;color:var(--c-fg);letter-spacing:-.025em;text-decoration:none;display:inline-flex;align-items:center;gap:var(--space-2)}
+.nav-brand strong{background:linear-gradient(135deg,var(--c-purple-bright),var(--c-lime));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:transparent;font-style:normal}
+.nav-brand .star{display:inline-block;color:var(--c-lime);font-size:.7em;transform:rotate(-12deg);text-shadow:0 0 8px var(--c-lime-glow)}
+.nav-links{display:flex;gap:var(--space-6);list-style:none}
+.nav-links a{color:var(--c-fg-dim);text-decoration:none;font-size:.875rem;font-weight:600;transition:color 180ms}
+.nav-links a:hover{color:var(--c-fg)}
+.nav-links a[aria-current=page]{color:var(--c-lime)}
+@media (max-width:720px){.nav-links{gap:var(--space-3);font-size:.75rem}}
+main{max-width:var(--content-narrow);margin:0 auto;padding:var(--space-16) var(--space-6) var(--space-24)}
+.eyebrow{display:inline-block;font-family:var(--font-mono);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--c-lime);background:rgba(163,230,53,.08);padding:.25rem var(--space-3);border:1px solid var(--c-lime);border-radius:var(--radius-pill);margin-bottom:var(--space-4)}
+h1{font-family:var(--font-serif);font-weight:900;font-size:clamp(2rem,5vw,3rem);line-height:1.05;letter-spacing:-.025em;margin-bottom:var(--space-4)}
+h2{font-family:var(--font-serif);font-weight:700;font-size:1.5rem;margin:var(--space-10) 0 var(--space-4);letter-spacing:-.02em;color:var(--c-fg)}
+p,ul,ol{color:var(--c-fg-dim);font-size:1rem;line-height:1.65;margin-bottom:var(--space-4)}
+ul,ol{padding-left:var(--space-6)}
+li{margin-bottom:var(--space-2)}
+p strong,li strong{color:var(--c-fg);font-weight:700}
+.lede{font-size:1.125rem}
+.meta{font-family:var(--font-mono);font-size:.75rem;color:var(--c-fg-dimmer);margin-bottom:var(--space-10)}
+.callout{padding:var(--space-4) var(--space-6);background:var(--c-bg-elevated);border-left:4px solid var(--c-lime);border-radius:var(--radius-md);margin:var(--space-6) 0}
+.callout p{margin:0}
+footer.site-foot{max-width:var(--content-width);margin:var(--space-24) auto 0;padding:var(--space-10) var(--space-6);border-top:1px dashed var(--c-border-strong);display:flex;justify-content:space-between;gap:var(--space-6);flex-wrap:wrap;font-size:.875rem;color:var(--c-fg-dimmer)}
+footer a{color:var(--c-fg-dim);text-decoration:underline;text-decoration-color:var(--c-border-strong);text-underline-offset:4px}
+footer a:hover{color:var(--c-lime)}
+.footer-links{display:flex;gap:var(--space-6);flex-wrap:wrap}
+.footer-meta{display:flex;gap:var(--space-3);align-items:center;flex-wrap:wrap}
+.heart{color:var(--c-lime)}
+</style>
+</head>
+<body>
+<nav class="site-nav" aria-label="Primary">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand"><span class="star" aria-hidden="true">✦</span>Dominion <strong>Labs</strong></a>
+    <ul class="nav-links" role="list">
+      <li><a href="/#products">Products</a></li>
+      <li><a href="/#tools">Tools</a></li>
+      <li><a href="about.html">About</a></li>
+      <li><a href="request.html">Talk</a></li>
+      <li><a href="donate.html">Donate</a></li>
+    </ul>
+  </div>
+</nav>
+<main>
+  <span class="eyebrow">★ privacy</span>
+  <h1>Privacy policy.</h1>
+  <p class="meta">Last updated: 2026-05-19 · Plain talk version</p>
+
+  <p class="lede">Short version: <strong>we don't track you, we don't sell anything, and we collect only what we need to reply.</strong></p>
+
+  <div class="callout"><p><strong>Bottom line:</strong> if you visit dominionlabs.dev, no analytics or trackers run. If you send a form, we get what you typed and nothing else. If you donate, the payment processor (Stripe or PayPal) handles your card data — we never see it.</p></div>
+
+  <h2>What we collect</h2>
+  <ul>
+    <li><strong>Form submissions.</strong> When you use the Talk or Donate forms, your mail client opens with your typed content. We receive whatever you choose to send. That's it.</li>
+    <li><strong>Email correspondence.</strong> If you email us, we keep the thread (Gmail handles storage).</li>
+    <li><strong>Payment data.</strong> Donations go through Stripe or PayPal. Their privacy policies apply. We see the donation amount + the name/email you provide; we never see your card or bank details.</li>
+    <li><strong>GitHub interactions.</strong> If you star/fork/issue/PR on github.com/thenot-lab, GitHub's privacy policy applies.</li>
+  </ul>
+
+  <h2>What we don't collect</h2>
+  <ul>
+    <li>No analytics. No Google Analytics, no Plausible, no Fathom, no anything.</li>
+    <li>No cookies (the site doesn't set any).</li>
+    <li>No third-party scripts beyond Google Fonts (CSS only).</li>
+    <li>No tracking pixels in emails.</li>
+    <li>No A/B testing.</li>
+    <li>No marketing automation.</li>
+  </ul>
+
+  <h2>Embedded tools (miniapps)</h2>
+  <p>The Play and Tools sections embed miniapps from <strong>miniapps.ai</strong>. When you interact with an embedded tool, you are using miniapps.ai directly inside an iframe — their privacy policy applies for whatever the tool does. The iframes are sandboxed.</p>
+
+  <h2>Custom engagements</h2>
+  <p>If you hire us for consulting, audits, or custom builds, we'll handle whatever data is required for the engagement. Specific data-handling terms go in the engagement contract. As a default: we delete project data 90 days after engagement close unless you ask us to keep it.</p>
+
+  <h2>Your rights</h2>
+  <p>You can request what we have on you, ask us to delete it, or correct it, at any time. Email <strong>contact@dominionlabs.dev</strong>. We'll respond within 30 days, usually faster.</p>
+
+  <h2>Children</h2>
+  <p>Dominion Labs services are not directed at children under 13. If we learn we've collected data from a child under 13, we delete it.</p>
+
+  <h2>Changes</h2>
+  <p>If we materially change this policy, we'll bump the date at the top + note what changed in our changelog. We won't retroactively use data for purposes outside the original collection scope.</p>
+
+  <h2>Contact</h2>
+  <p>Email <strong>contact@dominionlabs.dev</strong>. We read every message.</p>
+</main>
+<footer class="site-foot">
+  <div class="footer-meta">
+    <span>© 2026 Dominion Labs</span>
+    <span aria-hidden="true">·</span>
+    <span>Apache 2.0</span>
+    <span aria-hidden="true">·</span>
+    <span>made with <span class="heart" aria-hidden="true">♥</span></span>
+  </div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="about.html">About</a>
+    <a href="terms.html">Terms</a>
+    <a href="mailto:contact@dominionlabs.dev">Email</a>
+  </div>
+</footer>
+</body>
+</html>

@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>About — Dominion Labs</title>
+<meta name="description" content="Small shop building friendly AI tools, security help, and code that runs on your hardware. Apache 2.0. The take-build-give-back framework.">
+<meta name="theme-color" content="#0c0820">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://dominionlabs.dev/about.html">
+<meta property="og:title" content="About — Dominion Labs">
+<meta property="og:description" content="What we are and why we exist.">
+<meta property="og:site_name" content="Dominion Labs">
+<meta name="twitter:card" content="summary">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,700;9..144,900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--c-bg:#0c0820;--c-bg-elevated:#14102e;--c-fg:#fff;--c-fg-dim:#c4b8e6;--c-fg-dimmer:#7a6fa6;--c-border:rgba(124,58,237,.2);--c-border-strong:rgba(124,58,237,.5);--c-purple:#8b5cf6;--c-purple-bright:#a78bfa;--c-purple-deep:#6d28d9;--c-purple-glow:rgba(139,92,246,.25);--c-lime:#a3e635;--c-lime-bright:#bef264;--c-lime-glow:rgba(163,230,53,.2);--font-sans:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;--font-serif:'Fraunces','Iowan Old Style',Georgia,serif;--font-mono:'JetBrains Mono','Cascadia Code',Menlo,Consolas,monospace;--space-2:.5rem;--space-3:.75rem;--space-4:1rem;--space-6:1.5rem;--space-8:2rem;--space-10:2.5rem;--space-12:3rem;--space-16:4rem;--space-20:5rem;--space-24:6rem;--radius-md:12px;--radius-blob:28px;--radius-pill:9999px;--ease-out:cubic-bezier(.25,.46,.45,.94);--ease-bounce:cubic-bezier(.34,1.56,.64,1);--duration-fast:180ms;--content-width:72rem;--content-narrow:48rem;--shadow-card:0 8px 0 0 var(--c-purple-deep);--shadow-glow-lime:0 0 32px var(--c-lime-glow)}
+@media (prefers-reduced-motion:reduce){:root{--duration-fast:0ms}*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--c-bg);background-image:radial-gradient(circle at 20% 0%,rgba(139,92,246,.15) 0%,transparent 50%),radial-gradient(circle at 80% 100%,rgba(163,230,53,.06) 0%,transparent 50%);background-attachment:fixed;color:var(--c-fg);font-family:var(--font-sans);font-size:1rem;line-height:1.5;-webkit-font-smoothing:antialiased}
+a:focus-visible{outline:3px solid var(--c-lime);outline-offset:3px;border-radius:6px}
+.skip-link{position:absolute;top:-100px;left:var(--space-4);background:var(--c-lime);color:var(--c-bg);padding:var(--space-2) var(--space-4);border-radius:var(--radius-pill);z-index:200;font-weight:700}
+.skip-link:focus{top:var(--space-4)}
+nav.site-nav{position:sticky;top:0;background:rgba(12,8,32,.85);backdrop-filter:blur(12px) saturate(180%);-webkit-backdrop-filter:blur(12px) saturate(180%);border-bottom:1px solid var(--c-border);z-index:100}
+.nav-inner{max-width:var(--content-width);margin:0 auto;padding:var(--space-4) var(--space-6);display:flex;align-items:center;justify-content:space-between}
+.nav-brand{font-family:var(--font-serif);font-weight:900;font-size:1.25rem;font-style:italic;color:var(--c-fg);letter-spacing:-.025em;text-decoration:none;display:inline-flex;align-items:center;gap:var(--space-2)}
+.nav-brand strong{background:linear-gradient(135deg,var(--c-purple-bright),var(--c-lime));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:transparent;font-style:normal}
+.nav-brand .star{display:inline-block;color:var(--c-lime);font-size:.7em;transform:rotate(-12deg);text-shadow:0 0 8px var(--c-lime-glow)}
+.nav-links{display:flex;gap:var(--space-6);list-style:none}
+.nav-links a{color:var(--c-fg-dim);text-decoration:none;font-size:.875rem;font-weight:600;transition:color var(--duration-fast) var(--ease-out);position:relative}
+.nav-links a[aria-current=page]{color:var(--c-lime)}
+.nav-links a:hover{color:var(--c-fg)}
+@media (max-width:720px){.nav-links{gap:var(--space-3);font-size:.75rem}}
+main{max-width:var(--content-narrow);margin:0 auto;padding:var(--space-20) var(--space-6) var(--space-24)}
+.eyebrow{display:inline-block;font-family:var(--font-mono);font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--c-lime);background:rgba(163,230,53,.08);padding:.25rem var(--space-3);border:1px solid var(--c-lime);border-radius:var(--radius-pill);margin-bottom:var(--space-4);box-shadow:var(--shadow-glow-lime)}
+h1{font-family:var(--font-serif);font-size:clamp(2.5rem,6vw,4rem);font-weight:900;line-height:1.05;letter-spacing:-.025em;margin-bottom:var(--space-6)}
+h1 em{font-style:italic;background:linear-gradient(135deg,var(--c-purple-bright),var(--c-lime));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;color:transparent;font-weight:700}
+h2{font-family:var(--font-serif);font-size:1.875rem;font-weight:700;margin:var(--space-12) 0 var(--space-4);letter-spacing:-.02em}
+h2 em{font-style:italic;color:var(--c-lime);font-weight:600}
+p{color:var(--c-fg-dim);font-size:1.125rem;line-height:1.65;margin-bottom:var(--space-6);max-width:60ch}
+p strong{color:var(--c-fg);font-weight:700}
+.lede{font-size:1.25rem}
+ul.plain{list-style:none;display:grid;gap:var(--space-4);margin:var(--space-6) 0}
+ul.plain li{padding:var(--space-4) var(--space-6);background:var(--c-bg-elevated);border-left:4px solid var(--c-lime);border-radius:var(--radius-md);color:var(--c-fg-dim);line-height:1.65}
+ul.plain li strong{color:var(--c-fg)}
+.cta-box{margin-top:var(--space-16);padding:var(--space-10) var(--space-8);background:linear-gradient(135deg,rgba(139,92,246,.18) 0%,rgba(163,230,53,.08) 100%);border:2px solid var(--c-border-strong);border-radius:var(--radius-blob);text-align:center;box-shadow:var(--shadow-card)}
+.cta-box h3{font-family:var(--font-serif);font-size:1.875rem;font-weight:900;margin-bottom:var(--space-4)}
+.btn{display:inline-flex;align-items:center;gap:var(--space-2);padding:var(--space-4) var(--space-8);border-radius:var(--radius-pill);font-size:1rem;font-weight:700;text-decoration:none;transition:all var(--duration-fast) var(--ease-bounce);border:2px solid transparent;cursor:pointer;font-family:inherit;background:var(--c-lime);color:var(--c-bg);border-color:var(--c-lime-bright);box-shadow:0 8px 0 0 #65a30d}
+.btn:hover{transform:translateY(-3px);box-shadow:0 14px 0 0 #65a30d,var(--shadow-glow-lime)}
+footer.site-foot{max-width:var(--content-width);margin:var(--space-24) auto 0;padding:var(--space-10) var(--space-6);border-top:1px dashed var(--c-border-strong);display:flex;justify-content:space-between;gap:var(--space-6);flex-wrap:wrap;font-size:.875rem;color:var(--c-fg-dimmer)}
+footer a{color:var(--c-fg-dim);text-decoration:underline;text-decoration-color:var(--c-border-strong);text-underline-offset:4px;transition:all var(--duration-fast)}
+footer a:hover{color:var(--c-lime);text-decoration-color:var(--c-lime)}
+.footer-links{display:flex;gap:var(--space-6);flex-wrap:wrap}
+.footer-meta{display:flex;gap:var(--space-3);align-items:center;flex-wrap:wrap}
+.footer-meta .heart{color:var(--c-lime)}
+</style>
+</head>
+<body>
+<a href="#main" class="skip-link">Skip to content</a>
+<nav class="site-nav" aria-label="Primary">
+  <div class="nav-inner">
+    <a href="/" class="nav-brand"><span class="star" aria-hidden="true">✦</span>Dominion <strong>Labs</strong></a>
+    <ul class="nav-links" role="list">
+      <li><a href="/#products">Products</a></li>
+      <li><a href="/#play">Play</a></li>
+      <li><a href="/#tools">Tools</a></li>
+      <li><a href="/#help">Help</a></li>
+      <li><a href="request.html">Talk</a></li>
+      <li><a href="donate.html">Donate</a></li>
+      <li><a href="about.html" aria-current="page">About</a></li>
+    </ul>
+  </div>
+</nav>
+<main id="main">
+  <span class="eyebrow">★ about</span>
+  <h1>Small shop. <em>Real code</em>. No fluff.</h1>
+  <p class="lede">Dominion Labs is an independent shop. We make AI tools, run security audits, and build custom stuff for people who'd rather own their infrastructure than rent it.</p>
+
+  <h2>What we actually <em>do</em></h2>
+  <p>Three things, mostly:</p>
+  <ul class="plain">
+    <li><strong>Ship tools.</strong> Open-source CLIs, miniapps you can use in the browser, companion apps. All listed on the home page. All free unless they cost real money to run.</li>
+    <li><strong>Run audits.</strong> Real security assessments, not checklists. We read the code, find the actual problems, write you a report you can hand to a developer and they'll know what to fix.</li>
+    <li><strong>Build custom.</strong> AI infrastructure on your hardware. Self-hosted setups. Automation. Companion apps. Whatever the project needs — if it's interesting and we can help, we'll quote it.</li>
+  </ul>
+
+  <h2>Why we <em>started</em></h2>
+  <p>Big tech AI keeps trying to put itself between you and your work. Subscriptions. Telemetry. Forced cloud. We started Dominion Labs to ship the opposite: tools that run on your own boxes, code you can audit, and a working pace that doesn't burn anyone out.</p>
+  <p>We're small on purpose. Small means we know each customer. Small means we say no to bad fits. Small means when you write to us, an actual person reads it.</p>
+
+  <h2>How we <em>work</em></h2>
+  <ul class="plain">
+    <li><strong>Sovereignty first.</strong> Tools designed to run on your hardware. Your data stays with you. Cloud is optional, never required.</li>
+    <li><strong>Open source where we can.</strong> Apache 2.0 license on most repos. Audit before you trust. Fork if you want to.</li>
+    <li><strong>Plain talk.</strong> Honest scope, honest prices. No buzzwords. No upsells. No surprise invoices.</li>
+    <li><strong>Ethics review.</strong> Every project gets a quick values check before any code gets written. Some asks we say no to.</li>
+    <li><strong>Take. Build. Give back.</strong> Donations fund free engagements for non-profits and people who can't pay. The circle keeps going.</li>
+  </ul>
+
+  <h2>The <em>framework</em></h2>
+  <p>One sentence: <strong>accept honest help, use it to build real capacity, empower others from where you now stand.</strong></p>
+  <p>It's not charity-as-virtue (which is patronizing). It's not pure self-reliance (which is brittle). It's a circle. Each donation, each engagement, each tool shipped is part of an expanding loop, not a one-way transaction.</p>
+
+  <h2>Who we <em>are</em></h2>
+  <p>Dominion Labs is a small Canadian shop. We don't list staff names publicly because the work is what matters; the people doing it are happy to talk on a call but don't need to be on the homepage.</p>
+  <p>Founded 2025. Apache 2.0 licensed where applicable. No VCs, no investors, no board — just a working ledger.</p>
+
+  <div class="cta-box">
+    <h3>Want to work together?</h3>
+    <p style="text-align:center;margin:0 auto var(--space-6);max-width:50ch;">Got a project, want to chip in, or just say hi? All paths welcome.</p>
+    <div style="display:flex;gap:var(--space-3);justify-content:center;flex-wrap:wrap;">
+      <a href="request.html" class="btn">Talk to us →</a>
+    </div>
+  </div>
+</main>
+<footer class="site-foot">
+  <div class="footer-meta">
+    <span>© 2026 Dominion Labs</span>
+    <span aria-hidden="true">·</span>
+    <span>Apache 2.0</span>
+    <span aria-hidden="true">·</span>
+    <span>made with <span class="heart" aria-hidden="true">♥</span></span>
+  </div>
+  <div class="footer-links">
+    <a href="/">Home</a>
+    <a href="https://github.com/thenot-lab">GitHub</a>
+    <a href="/llms.txt">/llms.txt</a>
+    <a href="privacy.html">Privacy</a>
+    <a href="terms.html">Terms</a>
+    <a href="mailto:contact@dominionlabs.dev">Email</a>
+  </div>
+</footer>
+</body>
+</html>

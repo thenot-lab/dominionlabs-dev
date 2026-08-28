@@ -1,0 +1,468 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="The Green-Signal Audit sample report: 15 findings from auditing our own systems, failures left in. Every finding verifiable in minutes.">
+</head>
+<body>
+<title>The Green-Signal Audit</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+
+<style>
+  :root{
+    --ground:#F2F4F0;
+    --raise:#FBFCFA;
+    --ink:#14201A;
+    --ink-soft:#4A5B52;
+    --ink-faint:#7C8B83;
+    --rule:#CFD7CC;
+    --rule-soft:#E2E8DF;
+    --pine:#1F5C3D;
+    --pine-wash:#E6EFE8;
+    --amber:#A65A17;
+    --amber-wash:#F6EBDF;
+    --crimson:#8C2B2B;
+    --shadow:0 1px 2px rgba(20,32,26,.05);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0E1411;
+      --raise:#151D19;
+      --ink:#E4EAE4;
+      --ink-soft:#A3B0A8;
+      --ink-faint:#718077;
+      --rule:#2B3630;
+      --rule-soft:#1F2823;
+      --pine:#63BC8C;
+      --pine-wash:#152620;
+      --amber:#D89049;
+      --amber-wash:#2A1F13;
+      --crimson:#D46A6A;
+      --shadow:0 1px 2px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0E1411;
+    --raise:#151D19;
+    --ink:#E4EAE4;
+    --ink-soft:#A3B0A8;
+    --ink-faint:#718077;
+    --rule:#2B3630;
+    --rule-soft:#1F2823;
+    --pine:#63BC8C;
+    --pine-wash:#152620;
+    --amber:#D89049;
+    --amber-wash:#2A1F13;
+    --crimson:#D46A6A;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+
+  *{box-sizing:border-box}
+  body{
+    margin:0;
+    background:var(--ground);
+    color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:52rem;margin:0 auto;padding:0 1.5rem 6rem}
+
+  /* ---------- masthead ---------- */
+  .mast{padding:4.5rem 0 2.5rem;border-bottom:1px solid var(--rule)}
+  .eyebrow{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;
+    font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--ink-faint);display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;
+  }
+  .eyebrow span::after{content:"·";margin-left:.6rem;color:var(--rule)}
+  .eyebrow span:last-child::after{content:""}
+  h1{
+    font-family:"Instrument Serif",Georgia,serif;
+    font-weight:400;font-size:clamp(2.6rem,7vw,4.1rem);
+    line-height:1.02;letter-spacing:-.015em;text-wrap:balance;
+    margin:1.1rem 0 0;
+  }
+  .thesis{
+    font-size:1.18rem;line-height:1.55;color:var(--ink-soft);
+    max-width:34rem;margin:1.25rem 0 0;text-wrap:pretty;
+  }
+  .thesis em{font-style:italic;color:var(--ink)}
+
+  /* ---------- meter row ---------- */
+  .meters{
+    display:grid;grid-template-columns:repeat(auto-fit,minmax(9rem,1fr));
+    gap:1px;background:var(--rule);border:1px solid var(--rule);
+    margin:2.5rem 0 0;
+  }
+  .meter{background:var(--raise);padding:1.1rem 1.1rem 1rem}
+  .meter b{
+    display:block;font-family:"IBM Plex Mono",monospace;
+    font-size:1.85rem;font-weight:500;line-height:1;
+    font-variant-numeric:tabular-nums;letter-spacing:-.02em;
+  }
+  .meter small{
+    display:block;margin-top:.45rem;font-size:.74rem;line-height:1.35;
+    color:var(--ink-faint);letter-spacing:.02em;
+  }
+
+  /* ---------- sections ---------- */
+  section{padding-top:3.5rem}
+  h2{
+    font-family:"Instrument Serif",Georgia,serif;font-weight:400;
+    font-size:2rem;line-height:1.15;margin:0 0 .4rem;letter-spacing:-.01em;
+  }
+  .lede{color:var(--ink-soft);margin:0 0 1.75rem;max-width:36rem;text-wrap:pretty}
+  p{margin:0 0 1rem}
+  a{color:var(--pine);text-underline-offset:2px}
+  a:focus-visible,summary:focus-visible{outline:2px solid var(--pine);outline-offset:3px;border-radius:2px}
+
+  /* ---------- the ladder ---------- */
+  .ladder{list-style:none;padding:0;margin:0;border-top:1px solid var(--rule-soft)}
+  .ladder li{
+    display:grid;grid-template-columns:2.2rem 1fr;gap:1rem;
+    padding:.85rem 0;border-bottom:1px solid var(--rule-soft);align-items:baseline;
+  }
+  .rung{
+    font-family:"IBM Plex Mono",monospace;font-size:.85rem;font-weight:500;
+    color:var(--pine);font-variant-numeric:tabular-nums;
+  }
+  .ladder b{font-weight:600}
+  .ladder small{display:block;color:var(--ink-faint);font-size:.88rem;line-height:1.45}
+
+  /* ---------- findings ---------- */
+  .finding{
+    border:1px solid var(--rule);background:var(--raise);
+    margin:0 0 1rem;box-shadow:var(--shadow);
+  }
+  .f-head{
+    display:flex;gap:.9rem;align-items:baseline;
+    padding:1rem 1.15rem .55rem;
+  }
+  .f-num{
+    font-family:"IBM Plex Mono",monospace;font-size:.8rem;font-weight:600;
+    color:var(--ink-faint);font-variant-numeric:tabular-nums;flex:none;
+    padding-top:.15rem;
+  }
+  .f-title{font-weight:600;font-size:1.06rem;line-height:1.35;margin:0;text-wrap:balance}
+  .pair{
+    display:grid;grid-template-columns:1fr 1fr;gap:1px;
+    background:var(--rule-soft);border-top:1px solid var(--rule-soft);
+  }
+  @media (max-width:34rem){.pair{grid-template-columns:1fr}}
+  .cell{background:var(--raise);padding:.85rem 1.15rem 1rem}
+  .cell h4{
+    margin:0 0 .4rem;font-family:"IBM Plex Mono",monospace;
+    font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;font-weight:600;
+  }
+  .cell.signal h4{color:var(--pine)}
+  .cell.ground h4{color:var(--amber)}
+  .cell p{margin:0;font-size:.94rem;line-height:1.55;color:var(--ink-soft)}
+  .cell.ground p{color:var(--ink)}
+  code{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.86em;
+    background:var(--pine-wash);color:var(--ink);
+    padding:.1em .34em;border-radius:2px;word-break:break-word;
+  }
+  .cell.ground code{background:var(--amber-wash)}
+  .cost{
+    padding:.7rem 1.15rem .85rem;border-top:1px solid var(--rule-soft);
+    font-size:.88rem;color:var(--ink-faint);line-height:1.5;
+  }
+  .cost b{color:var(--ink-soft);font-weight:600}
+
+  /* ---------- self section ---------- */
+  .self{border:1px solid var(--amber);background:var(--amber-wash);padding:1.6rem 1.5rem;margin-top:1.5rem}
+  .self h3{margin:0 0 .5rem;font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:1.5rem}
+  .self p:last-child{margin-bottom:0}
+
+  /* ---------- close ---------- */
+  .close{border-top:1px solid var(--rule);margin-top:4rem;padding-top:2.5rem}
+  .note{
+    font-size:.9rem;color:var(--ink-faint);border-left:2px solid var(--rule);
+    padding-left:1rem;margin:2rem 0 0;
+  }
+  @media (prefers-reduced-motion:no-preference){
+    .finding{transition:border-color .18s ease}
+  }
+  .finding:hover{border-color:var(--ink-faint)}
+</style>
+
+<div class="wrap">
+
+  <nav style="padding-top:1.4rem"><a href="/" style="font-family:'IBM Plex Mono',monospace;font-size:.78rem;letter-spacing:.1em;text-transform:uppercase;text-decoration:none">&larr; dominionlabs.dev</a></nav>
+
+  <header class="mast">
+    <div class="eyebrow">
+      <span>Sample report</span><span>Dominion Labs</span><span>27–28 August 2026</span>
+    </div>
+    <h1>The Green-Signal Audit</h1>
+    <p class="thesis">
+      Most audits look for what is broken. This one looks for something narrower and
+      harder to see: <em>guarantees whose enforcement is narrower than their claim</em> —
+      the check that passes over ground it never visited. A pass and a never-looked are
+      the same byte.
+    </p>
+    <div class="meters">
+      <div class="meter"><b>15</b><small>findings, two working days</small></div>
+      <div class="meter"><b>0</b><small>raised by any existing alarm</small></div>
+      <div class="meter"><b>4</b><small>overstated how blocked the work was</small></div>
+      <div class="meter"><b>2</b><small>live production bugs the compiler called clean</small></div>
+      <div class="meter"><b>5</b><small>defects in the auditor's own instruments</small></div>
+    </div>
+  </header>
+
+  <section>
+    <h2>What this is</h2>
+    <p class="lede">
+      We ran this method against our own substrate and left the failures in — including
+      the ones we caused. An audit of ourselves is a harder credential to fake than an
+      audit of a stranger.
+    </p>
+    <p>
+      The system under test is a working AI-engineering substrate: about fifty repositories,
+      thirteen production containers, twenty-three scheduled routines, roughly nine hundred
+      records, and six independent monitors that run on every session start. Every one of
+      those monitors reported healthy on the morning of the audit.
+    </p>
+    <p>
+      Findings were produced in a single day by six read-only verification agents working
+      in parallel, one per subsystem, each instructed to re-measure rather than trust the
+      record. Nothing below was discovered by a failing test or a red alarm, because there
+      weren't any.
+    </p>
+  </section>
+
+  <section>
+    <h2>What we actually look for</h2>
+    <p class="lede">
+      A check sits on one of five rungs. It must sit <em>one rung above</em> the claim it
+      is defending. Level with the claim is a restatement; below it is a lie with a green
+      tick. Most real defects are exactly one rung too shallow.
+    </p>
+    <ul class="ladder">
+      <li><span class="rung">01</span><span><b>The token</b><small>Does the string appear anywhere?</small></span></li>
+      <li><span class="rung">02</span><span><b>The behaviour</b><small>Is the thing actually being done?</small></span></li>
+      <li><span class="rung">03</span><span><b>The domain</b><small>What does this guarantee's scope genuinely admit?</small></span></li>
+      <li><span class="rung">04</span><span><b>The shape</b><small>Can it be wrong again, or is the failure now impossible?</small></span></li>
+      <li><span class="rung">05</span><span><b>The instrument</b><small>Is the measurement measuring? Has it been tested against a known answer?</small></span></li>
+    </ul>
+    <p class="note">
+      The difficulty is that each rung is invisible from inside the ones below it. A word
+      match looks exactly like a behaviour check. An unrun check is byte-identical to a
+      pass. You cannot audit your own rung from the inside — which is the entire argument
+      for an external pass.
+    </p>
+  </section>
+
+  <section>
+    <h2>Findings</h2>
+    <p class="lede">
+      Ordered by how badly each one misdirected the work. Every finding is verifiable on
+      the machine in under a minute — that is the standard, not a courtesy.
+    </p>
+
+    <article class="finding">
+      <div class="f-head"><span class="f-num">01</span><h3 class="f-title">A claim dated “today”, written ten days earlier</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>The highest-authority row in the disposition register — priority item one — carried the evidence marker <code>(evidence: today)</code>.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>Written ten days before. A relative word frozen into a file <b>cannot age</b>. It doesn't go stale — it reads fresh forever, which is strictly worse, because a visibly old date at least invites the check.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> it was the freshest-looking line in the file and the only one that was structurally incapable of being true.</div>
+    </article>
+
+    <article class="finding">
+      <div class="f-head"><span class="f-num">02</span><h3 class="f-title">An item marked open for eleven days after it closed</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>A production permanence issue listed as outstanding: the fix lived in a running container but not in the image, so a restart would lose it.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>The image had been rebuilt eleven days earlier and the container recreated 11.5 seconds later. <code>docker diff</code> showed no in-container source edits at all. It was fixed the whole time.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> sessions kept sequencing work around a solved problem, and a real new gap — the production source existed in no version control anywhere — sat underneath it, unnamed.</div>
+    </article>
+
+    <article class="finding">
+      <div class="f-head"><span class="f-num">03</span><h3 class="f-title">“One key away” was five acts away</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>The revenue service was recorded as one credential away from its first customer. 338 tests green. Delivery, retention and webhook handling all built and scheduled.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>The service was <b>deployed nowhere</b>. Its deploy config had never been applied, the hosting CLI was logged out, nothing was listening on any port, and no mail transport was configured. A customer had no reachable address to buy from.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> a green suite over a service with no address. The tests were honest about the code and silent about the deployment, and nothing in the system was responsible for noticing the difference.</div>
+    </article>
+
+    <article class="finding">
+      <div class="f-head"><span class="f-num">04</span><h3 class="f-title">A working copy vanished and nothing noticed</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>A project listed at a known local path, with a monitor watching that path for drift.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>The directory had been removed in a desktop reorganisation. Every recorded address was dead. The monitor reported the repository “unscannable” — which read as a configuration nuisance, not as loss.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> the only surviving copy was a remote push from nine days earlier. Had that push not happened, the work was gone and the alarm for it was a shrug.</div>
+    </article>
+
+    <article class="finding">
+      <div class="f-head"><span class="f-num">05</span><h3 class="f-title">Seven repositories existed in exactly one place</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>A loss-risk policy tracked local-only repositories and confirmed each had an off-machine mirror. All green.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>The policy's domain was <b>local-only</b>. Seven repositories were the mirror image — remote-only, never cloned, never mirrored — and were invisible to a check that only ever looked in one direction.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> textbook narrow-domain. The guarantee said “no single-copy repositories”; the enforcement said “no single-copy <i>local</i> repositories”; the difference was seven.</div>
+    </article>
+
+    <article class="finding">
+      <div class="f-head"><span class="f-num">06</span><h3 class="f-title">A blocker that had never existed</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>An infrastructure note instructing the next engineer to create missing SSH host aliases before working on two servers.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>The aliases existed and both hosts authenticated on the first attempt.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> phantom blockers are more expensive than real ones. Real blockers get solved; phantom ones get routed around, permanently.</div>
+    </article>
+
+    <article class="finding">
+      <div class="f-head"><span class="f-num">07</span><h3 class="f-title">Two services recorded live were down</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>A service inventory listing local inference ports as part of the running stack.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>Two of them answered nothing. A third, listed with a caveat, was the only one actually up.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> the inventory was written once and read continuously. Nothing re-probed it, so it aged into fiction one port at a time.</div>
+    </article>
+
+    <article class="finding">
+      <div class="f-head"><span class="f-num">08</span><h3 class="f-title">A pin that had outgrown its own scope</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>365 files pinned to local disk so builds could not be broken by cloud-sync eviction. Verified at the time and correct.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>The tracked set had since grown to 1,383 files. The original 365 pins held perfectly; <b>176 newer files were eviction-eligible</b>. A pin is a snapshot, not a policy — and nothing re-ran it.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> the check was true about the files it covered and silent about the ones added after. Fixed by re-pinning all 1,383, zero errors.</div>
+    </article>
+
+    <article class="finding">
+      <div class="f-head"><span class="f-num">09</span><h3 class="f-title">Counts that were stale the day they were written</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>A handoff document recording a test suite at 846 passing.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>The commit it cited already said 861. Measured on audit day: 890. Two other headline numbers in the same document were also stale within hours of being written.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> not the numbers — the <b>practice</b>. Frozen counts in a living document decay silently, and every reader downstream inherits a false baseline.</div>
+    </article>
+
+    <article class="finding">
+      <div class="f-head"><span class="f-num">10</span><h3 class="f-title">A backup gate that verified the wrong property</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>Nightly off-site backups gated by an integrity check. Exit zero every night.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>The check verified the archive's <b>internal self-consistency</b>, never that it could actually be restored. Those are different properties, and only one of them is what a backup is for.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> replaced with a real test-restore into a temporary location, HEAD compared, then discarded. Proven both ways — a real run at exit zero, and a deliberately truncated archive correctly reported bad.</div>
+    </article>
+
+    <div class="self">
+      <h3>The three we caused ourselves</h3>
+      <p>
+        These are in the report because leaving them out would make it a brochure. All
+        three are defects in the instrument built to find the other ten — discovered on
+        its first day, by using it.
+      </p>
+    </div>
+
+    <article class="finding" style="margin-top:1rem">
+      <div class="f-head"><span class="f-num">11</span><h3 class="f-title">The new instrument flagged decisions as failures</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>First run: 19 items past their re-verification window. Alarming, and apparently vindicating.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>Six were <b>correct</b>. They were deliberately parked items, and parked things are supposed to age. The check measured a date's age (rung 2) beneath a claim about actionability (rung 3) — the exact error it was built to catch.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> a monitor that reddens a deliberate decision teaches its reader to ignore it, and the ignored monitor is the one that was right the seventh time. Findings went 48 → 13 once the scope was fixed.</div>
+    </article>
+
+    <article class="finding">
+      <div class="f-head"><span class="f-num">12</span><h3 class="f-title">It caught its author documenting a fix instead of making one</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>Four long-open questions were researched, answered, and written up in a detailed resolution block. The work was real and the answers were correct.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>The finding count didn't move. The <b>original rows still said unresolved</b> — the answers had been appended beside them, not applied to them. Anyone reading the register in the normal order would still have hit the stale rows first.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> the most honest moment of the audit. Recording a fix and making one feel identical from the inside, and only an external count told the difference. Rewriting the rows dropped it 8 → 4.</div>
+    </article>
+
+    <article class="finding">
+      <div class="f-head"><span class="f-num">13</span><h3 class="f-title">Two mutation tests were inert, and passed</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>Three mutations run against the new instrument's test suite to prove the tests could fail. All three reported caught.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>Two attempts had been mangled by shell escaping into a regex that could never match — a literal control character where a word boundary was intended. <b>The mutation never applied.</b> A mutation that doesn't apply is byte-identical to one that's caught.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> this is the thesis eating itself, and it is the reason the method is worth paying for. Verified afterwards by in-memory injection with the anchor asserted present. The test does have teeth — but that was luck until it was checked.</div>
+    </article>
+
+    <div class="self" style="border-color:var(--pine);background:var(--pine-wash)">
+      <h3>One day later — the class became an instrument</h3>
+      <p>
+        Finding 13's failure mode — an escape interpreted at write time, leaving a file
+        byte-different and text-identical — was turned into a permanent detector the next
+        morning: a byte-level scan of every git-tracked text file, run on every session
+        start. Its first pass covered <b>10,453 files across 44 repositories</b> and found
+        19 control characters that no parser, compiler, grep, or diff had ever objected
+        to. Two of them were live bugs in production code.
+      </p>
+    </div>
+
+    <article class="finding" style="margin-top:1rem">
+      <div class="f-head"><span class="f-num">14</span><h3 class="f-title">Two production regexes could never match — and the compiler was clean</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>A code-intent classifier and an @-mention route, both shipped, both type-checked clean, both apparently working in production.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>The <code>\b</code> word boundaries in both were literal backspace bytes (0x08). One regex was dead on both ends of its alternation; the mention route's first branch was dead — <b>the feature looked alive because two later alternatives still matched.</b> Proven by behaviour, not compilation: the repaired regex returns true on the text it was written to catch; the original returns false.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> the defect class is invisible to every text-level tool — <code>tsc</code>, review, grep and diff all agreed the code was fine. Only the raw byte differs, so the raw byte is what the instrument reads.</div>
+    </article>
+
+    <article class="finding">
+      <div class="f-head"><span class="f-num">15</span><h3 class="f-title">The new detector carried the report's own defects — and its tests caught them</h3></div>
+      <div class="pair">
+        <div class="cell signal"><h4>The signal</h4><p>The detector shipped with a green test suite, including a mutation test proving one invisible byte separates pass from fail.</p></div>
+        <div class="cell ground"><h4>The ground</h4><p>An unreadable scan root printed “no findings, exit 0” — <b>absence-as-completion, inside the tool built to catch it</b> — and the first version of its cache test was itself mangled by the exact class under test: a shell heredoc ate a backslash level, so the “clean” fixture wasn't. Both caught before commit — by the suite, not by care.</p></div>
+      </div>
+      <div class="cost"><b>Why it mattered:</b> you cannot audit your own rung from the inside — but a suite designed to be able to fail can. The instrument's green is only worth what its ability to go red has been proven to be.</div>
+    </article>
+  </section>
+
+  <section class="close">
+    <h2>What we would do on your repository</h2>
+    <p>
+      The same pass, scoped to what you actually rely on: your CI configuration and what
+      its matchers admit, your test suite's real domain versus its stated one, your backup
+      and restore path, your deploy configuration versus what is deployed, and the
+      documents your team reads to decide what to work on next.
+    </p>
+    <p>
+      You get a findings list in this format — signal, ground, and why it mattered — where
+      <b>every item is verifiable by your own engineers, on your own machines, in
+      minutes</b>. Nothing asks you to take our word for it. That is deliberate: a finding
+      you can't check yourself isn't a finding, it's an opinion.
+    </p>
+    <p class="note">
+      Findings 1–13 are drawn from a single working day on our own systems, on the day
+      the method was formalised. No monitor raised any of them. Six of the six subsystems
+      examined had drifted; four had drifted in the direction of reporting the work as
+      more blocked than it was. Findings 14–15 are from the following morning, when the
+      report's final defect class was converted into a standing instrument — which is the
+      other half of what you are buying: a finding here doesn't end as a list item, it
+      ends as a detector that runs every day after.
+    </p>
+  </section>
+
+
+  <section class="close" style="margin-top:3rem">
+    <h2>Want this run on your systems?</h2>
+    <p>
+      The Green-Signal Audit is a flat <b>US$500</b>, bounded engagement: your CI, test
+      domains, backup path, deploy config and the documents your team plans from —
+      findings delivered in this exact format within three business days of access
+      being confirmed.
+    </p>
+    <p>
+      <a href="https://buy.stripe.com/eVq4gzfHU9ZD7V0e1weQM0a"><b>Book it — $500, via Stripe</b></a>
+      &nbsp;&middot;&nbsp; questions first:
+      <a href="mailto:contact@dominionlabs.dev">contact@dominionlabs.dev</a>
+    </p>
+  </section>
+</div>
+</body>
+</html>

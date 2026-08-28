@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dominion Labs — bounded engagements, verifiable findings</title>
+<meta name="description" content="The Green-Signal Audit and other bounded engagements: we find the checks that pass over ground they never touched. Every finding verifiable on your own machines in minutes.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Organization","name":"Dominion Labs",
+ "url":"https://dominionlabs.dev","email":"contact@dominionlabs.dev",
+ "makesOffer":{"@type":"Offer","name":"The Green-Signal Audit","price":"500","priceCurrency":"USD",
+ "description":"A bounded audit that finds guarantees whose enforcement is narrower than their claim — checks that pass over ground they never visited."}}
+</script>
+<style>
+  :root{
+    --ground:#F2F4F0; --raise:#FBFCFA; --ink:#14201A; --ink-soft:#4A5B52;
+    --ink-faint:#7C8B83; --rule:#CFD7CC; --rule-soft:#E2E8DF;
+    --pine:#1F5C3D; --pine-wash:#E6EFE8; --amber:#A65A17; --amber-wash:#F6EBDF;
+    --shadow:0 1px 2px rgba(20,32,26,.05);
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --ground:#0E1411; --raise:#151D19; --ink:#E4EAE4; --ink-soft:#A3B0A8;
+      --ink-faint:#718077; --rule:#2B3630; --rule-soft:#1F2823;
+      --pine:#63BC8C; --pine-wash:#152620; --amber:#D89049; --amber-wash:#2A1F13;
+      --shadow:0 1px 2px rgba(0,0,0,.4);
+    }
+  }
+  :root[data-theme="dark"]{
+    --ground:#0E1411; --raise:#151D19; --ink:#E4EAE4; --ink-soft:#A3B0A8;
+    --ink-faint:#718077; --rule:#2B3630; --rule-soft:#1F2823;
+    --pine:#63BC8C; --pine-wash:#152620; --amber:#D89049; --amber-wash:#2A1F13;
+    --shadow:0 1px 2px rgba(0,0,0,.4);
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0;background:var(--ground);color:var(--ink);
+    font-family:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+    font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:52rem;margin:0 auto;padding:0 1.5rem 6rem}
+  .mast{padding:4.5rem 0 2.5rem;border-bottom:1px solid var(--rule)}
+  .eyebrow{
+    font-family:"IBM Plex Mono",ui-monospace,monospace;font-size:.72rem;
+    letter-spacing:.14em;text-transform:uppercase;color:var(--ink-faint);
+    display:flex;gap:.6rem;flex-wrap:wrap;align-items:center;
+  }
+  .eyebrow span::after{content:"·";margin-left:.6rem;color:var(--rule)}
+  .eyebrow span:last-child::after{content:""}
+  h1{
+    font-family:"Instrument Serif",Georgia,serif;font-weight:400;
+    font-size:clamp(2.5rem,6.5vw,3.9rem);line-height:1.04;
+    letter-spacing:-.015em;text-wrap:balance;margin:1.1rem 0 0;
+  }
+  .thesis{font-size:1.16rem;line-height:1.55;color:var(--ink-soft);max-width:36rem;margin:1.25rem 0 0;text-wrap:pretty}
+  .thesis em{font-style:italic;color:var(--ink)}
+  section{padding-top:3.25rem}
+  h2{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:1.9rem;line-height:1.15;margin:0 0 .4rem;letter-spacing:-.01em}
+  .lede{color:var(--ink-soft);margin:0 0 1.6rem;max-width:36rem;text-wrap:pretty}
+  p{margin:0 0 1rem}
+  a{color:var(--pine);text-underline-offset:2px}
+  a:focus-visible{outline:2px solid var(--pine);outline-offset:3px;border-radius:2px}
+  .flag{
+    border:1px solid var(--pine);background:var(--raise);box-shadow:var(--shadow);
+    padding:1.7rem 1.6rem;margin-top:.4rem;
+  }
+  .flag .price{
+    font-family:"IBM Plex Mono",monospace;font-size:.8rem;font-weight:600;
+    letter-spacing:.1em;text-transform:uppercase;color:var(--pine);
+  }
+  .flag h3{font-family:"Instrument Serif",Georgia,serif;font-weight:400;font-size:1.7rem;margin:.35rem 0 .6rem;letter-spacing:-.01em}
+  .flag ul{margin:.4rem 0 1.1rem;padding-left:1.15rem}
+  .flag li{margin:.3rem 0;color:var(--ink-soft)}
+  .flag li b{color:var(--ink)}
+  .cta{
+    display:inline-block;background:var(--pine);color:var(--ground);
+    text-decoration:none;font-weight:600;padding:.7rem 1.25rem;
+    border-radius:3px;margin-right:1rem;
+  }
+  .cta:hover{opacity:.92}
+  .ghost{
+    display:inline-block;color:var(--pine);text-decoration:none;font-weight:600;
+    padding:.7rem 0;
+  }
+  .ghost:hover{text-decoration:underline}
+  .fine{font-size:.85rem;color:var(--ink-faint);margin-top:1rem}
+  .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:1rem}
+  .card{border:1px solid var(--rule);background:var(--raise);padding:1.25rem 1.25rem 1.1rem;box-shadow:var(--shadow)}
+  .card h3{margin:0 0 .45rem;font-size:1.05rem;font-weight:600;line-height:1.35}
+  .card p{margin:0;font-size:.93rem;color:var(--ink-soft);line-height:1.55}
+  .card .tag{
+    font-family:"IBM Plex Mono",monospace;font-size:.66rem;letter-spacing:.12em;
+    text-transform:uppercase;color:var(--amber);display:block;margin-bottom:.5rem;
+  }
+  .how{list-style:none;padding:0;margin:0;border-top:1px solid var(--rule-soft)}
+  .how li{display:grid;grid-template-columns:2.2rem 1fr;gap:1rem;padding:.8rem 0;border-bottom:1px solid var(--rule-soft);align-items:baseline}
+  .how .n{font-family:"IBM Plex Mono",monospace;font-size:.85rem;font-weight:500;color:var(--pine)}
+  .how b{font-weight:600}
+  .how small{display:block;color:var(--ink-faint);font-size:.88rem;line-height:1.45}
+  .close{border-top:1px solid var(--rule);margin-top:4rem;padding-top:2.2rem}
+  footer{margin-top:3.5rem;padding-top:1.4rem;border-top:1px solid var(--rule-soft);
+    font-family:"IBM Plex Mono",monospace;font-size:.74rem;color:var(--ink-faint);
+    display:flex;gap:1.2rem;flex-wrap:wrap}
+  footer a{color:var(--ink-faint)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header class="mast">
+    <div class="eyebrow"><span>Dominion Labs</span><span>Ontario, Canada</span></div>
+    <h1>We find the checks that pass over ground they never touched.</h1>
+    <p class="thesis">
+      Bounded engagements with verifiable findings. No subscriptions, no retainers,
+      no enterprise theater — <em>a defined scope, a defined artifact, a defined end.</em>
+      Every finding we hand you can be checked by your own engineers, on your own
+      machines, in minutes.
+    </p>
+  </header>
+
+  <section>
+    <div class="flag">
+      <span class="price">Flagship · US$500 flat</span>
+      <h3>The Green-Signal Audit</h3>
+      <p>
+        Most audits look for what is broken. This one looks for something narrower and
+        harder to see: <b>guarantees whose enforcement is narrower than their claim</b> —
+        the green tick that covers ground it never visited. A pass and a never-looked
+        are the same byte, and nothing in your stack is responsible for noticing.
+      </p>
+      <ul>
+        <li><b>Scope:</b> your CI config and what its matchers actually admit · your test suite's real domain vs its stated one · your backup <i>restore</i> path · deploy config vs what is actually deployed · the documents your team plans from</li>
+        <li><b>Deliverable:</b> a findings list — signal, ground, why it mattered — each verifiable on your machines in under a minute</li>
+        <li><b>Timeline:</b> within three business days of access being confirmed</li>
+        <li><b>Proof:</b> we ran it on ourselves first and left the failures in — including the ones we caused</li>
+      </ul>
+      <a class="cta" href="https://buy.stripe.com/eVq4gzfHU9ZD7V0e1weQM0a">Book it — $500</a>
+      <a class="ghost" href="/audit-sample.html">Read the sample report →</a>
+      <p class="fine">Payment via Stripe · merchant reads DOMINION LABS · questions first: <a href="mailto:contact@dominionlabs.dev">contact@dominionlabs.dev</a></p>
+    </div>
+  </section>
+
+  <section>
+    <h2>Other engagements</h2>
+    <p class="lede">Same shape: negotiated in writing, delivered in a burst, finished. Scoped and quoted by email.</p>
+    <div class="cards">
+      <div class="card">
+        <span class="tag">Security</span>
+        <h3>Security &amp; code audit</h3>
+        <p>A deeper pass than the Snapshot: threat-model, adversarial review, written report with remediation code. We read the code — precedent includes catching a live authenticated RCE in production.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Exposure</span>
+        <h3>Attack-surface review</h3>
+        <p>What does the internet know about your org? Passive, public-source mapping of assets <b>you own or are authorized to assess</b> — vendor risk, brand impersonation, phishing-domain sweeps. Report plus lockdown list.</p>
+      </div>
+      <div class="card">
+        <span class="tag">Systems</span>
+        <h3>Reverse-engineering &amp; systems consulting</h3>
+        <p>Take an existing system apart and rebuild it better, scope-safe: root-cause diagnosis, modular rebuild plans, architecture reviews. You pay for the diagnosis and the fix, and it ends.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>How an engagement runs</h2>
+    <ul class="how">
+      <li><span class="n">01</span><span><b>Scope in writing.</b><small>What we assess, what access we get, what you get back. No ambiguity survives this step.</small></span></li>
+      <li><span class="n">02</span><span><b>Read-only by default.</b><small>Audits never modify your systems. Anything active is agreed in writing first.</small></span></li>
+      <li><span class="n">03</span><span><b>Findings you can verify.</b><small>A finding you can't check yourself isn't a finding, it's an opinion. Everything ships with the command that proves it.</small></span></li>
+      <li><span class="n">04</span><span><b>It ends.</b><small>One engagement, one artifact, done. No subscription, no lock-in, no upsell funnel.</small></span></li>
+    </ul>
+  </section>
+
+  <section class="close">
+    <h2>Why trust this?</h2>
+    <p>
+      Because we did it to ourselves in public. The <a href="/audit-sample.html">sample
+      report</a> is a real audit of our own systems — fifteen findings across two days,
+      including two live production bugs our own compiler called clean and five defects
+      in our own auditing instruments. A firm that publishes its own failures has less
+      room to hide yours.
+    </p>
+    <p>
+      Questions, scoping, or something custom:
+      <a href="mailto:contact@dominionlabs.dev"><b>contact@dominionlabs.dev</b></a> —
+      real people, no autoresponders.
+    </p>
+  </section>
+
+  <footer>
+    <a href="/audit-sample.html">sample report</a>
+    <a href="/terms.html">terms</a>
+    <a href="/privacy.html">privacy</a>
+    <a href="/donate.html">support the lab</a>
+    <span>© 2026 Dominion Labs</span>
+  </footer>
+
+</div>
+</body>
+</html>
